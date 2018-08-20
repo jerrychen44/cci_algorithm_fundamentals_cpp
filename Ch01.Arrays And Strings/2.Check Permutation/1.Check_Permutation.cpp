@@ -26,7 +26,7 @@ bool arePermutation(string str1,string str2)
 }
 
 bool arePermutation_2(const string &str1, const string &str2) {
-  if(str1.length() != str2.length()) 
+  if(str1.length() != str2.length())
     return false;
   int count[256]={0};
   for(int i = 0; i < str1.length(); i++) {
@@ -36,7 +36,7 @@ bool arePermutation_2(const string &str1, const string &str2) {
   for(int i = 0; i < str2.length(); i++) {
     int val = str2[i];
     count[val]--;
-    if(count[val]<0) 
+    if(count[val]<0)
       return false;
   }
   return true;
