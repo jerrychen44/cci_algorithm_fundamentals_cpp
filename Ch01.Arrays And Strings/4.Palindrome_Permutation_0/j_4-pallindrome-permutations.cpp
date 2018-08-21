@@ -185,26 +185,28 @@ int main()
     std::string str("Tact Coa");
     //std::cout << "Does \"" << str << "\"  has a string whose permutation is a pallindrome? "
     //          << "( 1 for true, 0 for false ) : \n";
-
+    std::cout << "Case: " << str << std::endl;
     std::cout << "Approach 1:" << isPermutationOfPallindrome1( str ) << std::endl;
     std::cout << "Approach 2:" << isPermutationOfPallindrome2( str ) << std::endl;
     std::cout << "Approach 3:" << isPermutationOfPallindrome3( str ) << std::endl;
 
-    /*
+
     std::string str1("A big Cat");
-    std::cout << "Does \"" << str1 << "\" has a string whose permutation is a pallindrome? "
-              << "( 1 for true, 0 for false ) : ";
+    //std::cout << "Does \"" << str1 << "\" has a string whose permutation is a pallindrome? "
+    //          << "( 1 for true, 0 for false ) : ";
+    std::cout << "Case: " << str1 << std::endl;
     std::cout << "Approach 1:" << isPermutationOfPallindrome1( str1 ) << std::endl;
     std::cout << "Approach 2:" << isPermutationOfPallindrome2( str1 ) << std::endl;
     std::cout << "Approach 3:" << isPermutationOfPallindrome3( str1 ) << std::endl;
 
 
     std::string str2("Aba cbc");
-    std::cout << "Does \"" << str2 << "\" has a string whose permutation is a pallindrome? "
-              << "( 1 for true, 0 for false ) : ";
+    std::cout << "Case: " << str2 << std::endl;
+    //std::cout << "Does \"" << str2 << "\" has a string whose permutation is a pallindrome? "
+    //          << "( 1 for true, 0 for false ) : ";
     std::cout << "Approach 1:" << isPermutationOfPallindrome1( str2 ) << std::endl;
     std::cout << "Approach 2:" << isPermutationOfPallindrome2( str2 ) << std::endl;
     std::cout << "Approach 3:" << isPermutationOfPallindrome3( str2 ) << std::endl;
-    */
+
     return 0;
 }

@@ -7,7 +7,7 @@
  * Therefore the chars in string should fit one of the two possibilities:
  *  - Each char appear even number of times in the string ( even length string )
  *  - Each char should appear even number of times, except just one char ( odd length string )
- * 
+ *
  * We won't care about the case of the letter
  */
 
@@ -35,7 +35,7 @@ int getCharIndex( char c )
 
 /*
  * Function : countFrequency
- * Args     : input string, an array of int 
+ * Args     : input string, an array of int
  * Return   : Void, array of int will populate each letter's frequency in string.
  */
 
@@ -54,10 +54,13 @@ void countFrequency( const std::string & str, int *frequency )
 
 
 /*
- * Function : isPermutePallindrome 
+ * Function : isPermutePallindrome
  * Args     : input string
  * Return   : returns true if is possible that one of the permutations of input string can be a pallindrome.
  *            else return false
+
+ Time complexity: O(n), n is the length of string
+
  */
 
 bool isPermutationOfPallindrome1( const std::string & str )
@@ -67,6 +70,7 @@ bool isPermutationOfPallindrome1( const std::string & str )
 
     /*
      * We will check here that letter frequencies are all even or all even except one odd.
+        checkMaxOneOdd() in book
      */
     bool oddAppeared = false;
     std::cout << std::endl;
@@ -84,8 +88,12 @@ bool isPermutationOfPallindrome1( const std::string & str )
 /*
  * Approach 2:
  * Let us optimize above function instead of taking another pass let us do it
- * in one go, we will count odd chars as we go along, if we are left with 
+ * in one go, we will count odd chars as we go along, if we are left with
  * more that 0 or 1, then the input string can't have pallindrome permutation
+
+
+ *Time complexity: O(n), n is the length of string
+
  */
 
 bool isPermutationOfPallindrome2( const std::string & str )
@@ -99,8 +107,8 @@ bool isPermutationOfPallindrome2( const std::string & str )
         if ( idx != -1 )
         {
             ++frequency[idx];
-            if ( frequency[idx] % 2 ) 
-            {   
+            if ( frequency[idx] % 2 )
+            {
                 ++oddCount;
             } else {
                 --oddCount;
@@ -122,7 +130,7 @@ bool isPermutationOfPallindrome2( const std::string & str )
 
 /*
  * helper function to toggle a bit in the integer
- */ 
+ */
 
 int toggle( int bitVector, int index )
 {
@@ -152,8 +160,11 @@ bool isExactlyOneBitSet( int bitVector )
 
 /*
  * Third approach solution
- * toggle bit represent the respective char 
+ * toggle bit represent the respective char
  * for each appearance in the string.
+
+ Time complexity: O(n), n is the length of string
+
  */
 
 bool isPermutationOfPallindrome3( const std::string & str )

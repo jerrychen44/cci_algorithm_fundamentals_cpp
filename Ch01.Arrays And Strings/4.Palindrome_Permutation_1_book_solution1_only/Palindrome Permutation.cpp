@@ -37,7 +37,7 @@ bool checkMaxOneOdd(vector<int> &table)
     bool foundOdd = false;
     for (auto count : table)
     {
-        if (count % 2 == 1)
+        if (count % 2 == 1)//check the count is odd or even
         {
             if (foundOdd)
             {
@@ -49,6 +49,11 @@ bool checkMaxOneOdd(vector<int> &table)
     return true;
 }
 
+
+/*
+
+Time complexity: O(n), n is the length of string
+*/
 bool isPermutationOfPalindrome(const string &phrase)
 {
     vector<int> table = buildCharFrequencyTable(phrase);
