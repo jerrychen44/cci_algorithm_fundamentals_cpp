@@ -76,6 +76,9 @@ void rotate90_anticlockwise( int ** matrix, int N ) {
 }
 
 
+/*
+Time complexity : O(N^2), we have to touch all element
+*/
 
 
 int main() {
