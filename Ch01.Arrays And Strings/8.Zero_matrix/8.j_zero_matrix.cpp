@@ -75,7 +75,9 @@ void printMatrix( int ** matrix, int M, int N ) {
 	std::cout << std::endl;
 }
 
-
+//although we can use first row, col as the null map
+//but we only use row here, we set the col to 0 directly
+//during the checking iteration.
 int main()
 {
 	int M=4, N=5;
