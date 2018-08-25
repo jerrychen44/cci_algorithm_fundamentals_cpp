@@ -45,23 +45,34 @@ void printList( Node * head ) {
 }
 
 
- /* We start with a new list. Elements bigger than the pivot element are put at the tail list
+ /* We start with two new list.
+ Elements bigger than the pivot element are put at the tail list
  and elements smaller are put at the head list*/
-Node * partition( Node * listhead , int x ) {
+
+Node * partition( Node * input_listhead , int x ) {
+
+   //create two new list
    Node * head = nullptr;
    Node * headInitial = nullptr;   /*The initial node of list head*/
    Node * tail = nullptr;
    Node * tailInitial = nullptr;   /*The initial node of list tail*/
-   Node * curr = listhead;
+
+   //current index
+   Node * curr = input_listhead;
+
+
    while( curr != nullptr ) {
+    //get the next node first
      Node * nextNode = curr->next;
      if ( curr->data < x ) {
+            // we put node to head list first time
             if (head == nullptr) {
                 head = curr;
-                headInitial = head;
+                headInitial = head;//we will not move headInitial
             }
        //insert curr node to head list
        head->next = curr;
+       //update head
        head = curr;
      } else {
             if (tail == nullptr) {
@@ -72,8 +83,10 @@ Node * partition( Node * listhead , int x ) {
        tail->next = curr;
        tail = curr;
      }
+     //update the curr for next round
      curr = nextNode;
    }
+   //concate tail to headlist as a result
    head->next = tailInitial;  /*Now, we connect the head list to tail list.*/
    tail->next = nullptr;
    return headInitial;
@@ -86,7 +99,7 @@ Node * partition( Node * listhead , int x ) {
 int main() {
   Node * head = nullptr;
   for ( int i = 0; i < 10; ++i ) {
-		insert(head, rand() % 9);
+		insert(head, rand() % 20);
 	}
   std::cout << "List before partition around 5:\n";
   printList(head);
