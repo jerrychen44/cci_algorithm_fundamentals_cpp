@@ -12,10 +12,12 @@ public:
   void push(int stackNum, int value);
 
   //Pop the top element from stack stackNum, where stackNum is from 0 to 2.
-  void pop(int stackNum);
+  int pop(int stackNum);
 
   //Return the top element on stack stackNum, where stackNum is from 0 to 2.
   int top(int stackNum) const;
+
+  void print_all_stack();
 
   bool isEmpty(int stackNum) const;
   bool isFull(int stackNum) const;
