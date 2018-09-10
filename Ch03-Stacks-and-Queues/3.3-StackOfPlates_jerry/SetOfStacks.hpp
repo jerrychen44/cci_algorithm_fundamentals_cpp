@@ -10,7 +10,11 @@ public:
     void push(int v);
     int pop();
 
+    int popAt(int indx);
+
     Stack* getLastStack();
+
+    void printSet();
 
 //private:
     int capcity;

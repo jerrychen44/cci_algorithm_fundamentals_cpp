@@ -18,6 +18,8 @@ class Stack
 
         int getSize();
 
+        int popfrombotm();
+
         //friend class Setofstack;
 
     //private:

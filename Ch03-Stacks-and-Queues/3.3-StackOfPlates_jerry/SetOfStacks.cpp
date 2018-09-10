@@ -1,5 +1,6 @@
 #include "SetOfStacks.hpp"
 #include <iostream>
+#include "stacknode.hpp"
 
 SetOfStacks::SetOfStacks(int capcity){
     this->capcity = capcity;
@@ -82,7 +83,65 @@ int SetOfStacks::pop(){
     return rst;
 }
 
+void SetOfStacks::printSet(){
 
+    std::cout << std::endl;
+
+    for (int i =0; i < setofstacks.size(); ++i){
+        StackNode *tmp = setofstacks[i]->stackhead;
+        for (int j=0; j < setofstacks[i]->cur_stacksize; ++j){
+
+            std::cout << tmp->data << ", " ;
+            tmp = tmp->nextnode;
+        }
+        std::cout << std::endl;
+
+    }
+
+}
+
+
+
+
+int SetOfStacks::popAt(int pop_idx){
+
+    std::cout <<std::endl;
+    int rst=-1;
+    if(pop_idx <0 || setofstacks.size() == 0){
+        return -1;
+    }
+
+    //handle the last stack
+    if(pop_idx == setofstacks.size()-1){
+
+        rst = pop();
+
+    }else{
+
+        rst = setofstacks[pop_idx]->pop();
+        //
+        for (int i = pop_idx; i < setofstacks.size()-1; ++ i ){
+            int rstbotm;
+            std::cout << "handle stack i = "<< i  <<std::endl;
+
+            rstbotm = setofstacks[i + 1]->popfrombotm();
+            setofstacks[i]->push(rstbotm);
+        }
+
+    }
+
+
+
+    Stack *last = getLastStack();
+    if(last->cur_stacksize == 0){
+        setofstacks.pop_back();
+        std::cout << "remove stack " << std::endl;
+
+    }
+
+    std::cout << "popAt idx: "<< pop_idx<< ", value: " << rst << std::endl;
+    return rst;
+}
 
 
 
