@@ -35,3 +35,27 @@ void Stack::push(int data){
     cur_stacksize++;
 
 }
+
+int Stack::pop(){
+
+    if(nodehead == nullptr || cur_stacksize ==0){
+        std::cout << "stack is empty"<< std::endl;
+        return -1;
+    }
+
+    int rst;
+    rst = nodehead->data;
+    Node *discard;
+    discard = nodehead;
+    nodehead = nodehead->prenode;
+    delete discard;
+    cur_stacksize--;
+    return rst;
+
+}
+
+
+
+
+
+

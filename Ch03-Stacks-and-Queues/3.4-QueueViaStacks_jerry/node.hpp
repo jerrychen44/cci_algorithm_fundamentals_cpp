@@ -5,7 +5,7 @@ class Node{
 
 public:
 
-    Node(int data,Node *inputnode);
+    Node(int data,Node *prenode);
 
     Node *prenode;
     int data;

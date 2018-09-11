@@ -13,6 +13,7 @@ public:
 
 
     void push(int data);
+    int pop();
 
 
     int cur_stacksize;
