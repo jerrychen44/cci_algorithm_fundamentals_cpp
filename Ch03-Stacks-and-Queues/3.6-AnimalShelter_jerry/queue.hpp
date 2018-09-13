@@ -8,12 +8,14 @@ class Queue{
 
 
 public:
-    Queue();
+
+    Queue(int *timestampGlobal);
     ~Queue();
 
     void add(int data);
     int remove();
     int peek();
+    int peektimestamp();
 
     bool isEmpty();
     void printq();
@@ -22,7 +24,7 @@ public:
     Node *firstnode;
     Node *lastnode;
     int cur_queuesize;
-    int timestampGlobal;
+    int *timestampGlobal;
 
 
 };

@@ -4,11 +4,11 @@
 
 
 
-Queue:: Queue(){
+Queue:: Queue(int *timestampGlobal){
     this->firstnode = nullptr;
     this->lastnode = nullptr;
     this->cur_queuesize = 0;
-    this->timestampGlobal =0;
+    this->timestampGlobal = timestampGlobal;
 }
 
 
@@ -17,13 +17,15 @@ Queue::~Queue(){
     while(firstnode != nullptr){
         Node *discard = firstnode;
         firstnode = firstnode ->nextnode;
+        discard = nullptr;
         delete discard;
     }
 
 
     while(lastnode != nullptr){
-        Node *discard = firstnode;
+        Node *discard = lastnode;
         lastnode = lastnode ->nextnode;
+        discard = nullptr;
         delete discard;
     }
 }
@@ -34,21 +36,21 @@ void Queue::add(int data){
     //queue is empty
     if(firstnode == nullptr && lastnode==nullptr){
         firstnode = new Node(data);
-        firstnode->timestampNode = timestampGlobal;
+        firstnode->timestampNode = *timestampGlobal;
         lastnode = firstnode;
     }else{
         Node *newnode = new Node(data);
-        newnode->timestampNode = timestampGlobal;
+        newnode->timestampNode = *timestampGlobal;
         lastnode->nextnode = newnode;
         lastnode = newnode;
 
     }
 
     cur_queuesize++;
-    timestampGlobal++;
+    (*timestampGlobal)++;
     std::cout << "add: " << data << std::endl;
     std::cout << "cur_queuesize " << cur_queuesize << std::endl;
-    std::cout << "timestampGlobal " << timestampGlobal << std::endl;
+    std::cout << "timestampGlobal " << *timestampGlobal << std::endl;
 
 
 }
@@ -77,12 +79,20 @@ int Queue::remove(){
     Node *discard;
     discard = firstnode;
     firstnode = firstnode->nextnode;
+    discard = nullptr;
     delete discard;
     cur_queuesize--;
 
 
     std::cout << "remove: " << rst << std::endl;
     std::cout << "cur_queuesize " << cur_queuesize << std::endl;
+
+    if(cur_queuesize == 0){
+        firstnode = nullptr;
+        lastnode = nullptr;
+    }
+
+
 
     return rst;
 }
@@ -92,7 +102,14 @@ void Queue::printq(){
 
     std::cout << " ==== print queue ====  " << std::endl;
 
+    if(isEmpty() ){
+        return;
+    }
+
+
     Node *tmp = firstnode;
+
+
     while(tmp !=nullptr){
         std::cout << tmp->data <<"(t:" << tmp->timestampNode<<"), ";
         tmp = tmp->nextnode;
@@ -102,6 +119,8 @@ void Queue::printq(){
     std::cout << "cur_queuesize " << cur_queuesize << std::endl;
     std::cout << "firstnode->data " << firstnode->data << std::endl;
     std::cout << "lastnode->data " << lastnode->data << std::endl;
+    std::cout << "timestampGlobal " << *timestampGlobal << std::endl;
+    std::cout << std::endl;
 
 }
 
@@ -118,6 +137,17 @@ int Queue::peek(){
     return firstnode->data;
 }
 
+int Queue::peektimestamp(){
+
+    if( isEmpty() ){
+        std::cout << "queue is empty, return peektimestamp = 9999 " << std::endl;
+        return 9999;
+    }
+    std::cout << "peek timestampNode: " << firstnode->timestampNode << std::endl;
+
+
+    return firstnode->timestampNode;
+}
 
 
 
