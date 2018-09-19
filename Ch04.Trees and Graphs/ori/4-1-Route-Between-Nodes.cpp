@@ -8,7 +8,7 @@ class Graph
 {
 public:
 	int V;	// number of vertices
-	vector<int> *adj;  //adjacency list 
+	vector<int> *adj;  //adjacency list
 
 	Graph(int V);
 	void addEdge(int x, int y);
@@ -34,7 +34,7 @@ bool Graph::isRoute(int x, int y){
 	queue<int> q;
 
 	q.push(x);
-
+    //BFS use queue
 	while(!q.empty()){
 		int curr = q.front();
 		if (curr == y)
@@ -45,7 +45,7 @@ bool Graph::isRoute(int x, int y){
 		visited[curr]= true;
 		int n_size =adj[curr].size();
 		for (int i = 0; i < n_size; ++i)
-		{	
+		{
 			if (!visited[adj[curr][i]])
 			{
 				q.push(adj[curr][i]);
@@ -56,8 +56,8 @@ bool Graph::isRoute(int x, int y){
 }
 
 int main(){
-	
-    Graph g(6);	
+
+    Graph g(6);
     g.addEdge(5, 2);
     g.addEdge(5, 0);
     g.addEdge(4, 0);
@@ -65,14 +65,14 @@ int main(){
     g.addEdge(2, 3);
     g.addEdge(3, 1);
 
-/*	
+/*
 	Test graph :
 
 	0 <---4---->1
 	^ 			^
 	|			|
 	|			|
-    5---->2---->3 
+    5---->2---->3
 
 */
     cout<<g.isRoute(5,4)<<endl; // false
