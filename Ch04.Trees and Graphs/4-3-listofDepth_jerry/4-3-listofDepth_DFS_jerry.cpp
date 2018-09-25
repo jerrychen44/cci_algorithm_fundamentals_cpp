@@ -130,18 +130,40 @@ void createLevelDepthList_DFS(Node * treeRoot,std::vector<ListNode* > *depthVect
 
 }
 
+void deiniDFS(std::vector<ListNode *> *depthVector){
 
-Node* createLevelDepthList_DFS(Node * treeRoot){
 
-    Node *listroot;
+    for (int i=0; i < depthVector->size(); ++i){
+
+        ListNode *tmp = (depthVector)->at(i);
+        std::cout << "level i:" << i << std::endl;
+
+        while(tmp !=nullptr){
+            std::cout << "Free " << tmp->treenode->data << ", ";
+            ListNode *discard;
+            discard = tmp;
+            tmp = tmp -> nextlistNode;
+            delete discard;
+            discard=nullptr;
+        }
+        std::cout<<std::endl;
+
+    }
+
+    //delete depthVector;
+}
+
+void createLevelDepthList_DFS(Node * treeRoot){
+
 
     std::vector<ListNode * > depthVector;
     //std::cout << "depthVector.size()" << (depthVector).size() <<std::endl;
 
     createLevelDepthList_DFS(treeRoot, &depthVector, 0);
 
-
+    ///////////
     //print out
+    //////////
     std::cout << "Print depthVector: " << std::endl;
     std::cout << "depthVector.size()" << (depthVector).size() <<std::endl;
 
@@ -157,7 +179,12 @@ Node* createLevelDepthList_DFS(Node * treeRoot){
 
     }
 
-    return listroot;
+
+    /////////
+    // deinit
+    /////////
+    deiniDFS(&depthVector);
+
 }
 
 
