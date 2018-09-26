@@ -78,21 +78,35 @@ void printPreorder(TreeNode *node){
 
 int checkHeight(TreeNode* root) {
     if (root == nullptr) {
+        std::cout << "root == nullptr,return 0" << std::endl;
         return 0;
     }
+
+    std::cout << "=== root->data:"<< root->data << std::endl;
+
     int leftHeight = checkHeight(root->left);
+    std::cout << "leftHeight:"<< leftHeight << std::endl;
+
     if (leftHeight == -1) {
+        std::cout << "leftHeight == -1,return -1" << std::endl;
         return -1;
     }
     int rightHeight = checkHeight(root->right);
+    std::cout << "rightHeight:"<< rightHeight << std::endl;
+
     if (rightHeight == -1) {
+        std::cout << "rightHeight == -1,return -1" << std::endl;
+
         return -1;
     }
 
     if (abs(leftHeight - rightHeight) > 1) {
+        std::cout << "abs(leftHeight - rightHeight) > 1,return -1" << std::endl;
         return -1;
     }
     else {
+        std::cout << "std::max(leftHeight, rightHeight) + 1,return :"<< std::max(leftHeight, rightHeight) + 1 << std::endl;
+
         return std::max(leftHeight, rightHeight) + 1;
     }
 }
@@ -110,7 +124,7 @@ int main(){
     int A[] = {1, 2, 3, 4, 5, 6, 7};
     std::vector<int> arr (A, A + sizeof(A) / sizeof(A[0]) );
     TreeNode *root = createMinBST(arr);
-    printPreorder(root);
+    //printPreorder(root);
     /*
         Convert List to BST {1,2,3,4,5,6,7}
                          4
@@ -127,3 +141,47 @@ int main(){
 
     return 0;
 }
+
+/*
+log
+
+=== root->data:4
+=== root->data:2
+=== root->data:1
+root == nullptr,return 0
+leftHeight:0
+root == nullptr,return 0
+rightHeight:0
+std::max(leftHeight, rightHeight) + 1,return :1
+leftHeight:1
+=== root->data:3
+root == nullptr,return 0
+leftHeight:0
+root == nullptr,return 0
+rightHeight:0
+std::max(leftHeight, rightHeight) + 1,return :1
+rightHeight:1
+std::max(leftHeight, rightHeight) + 1,return :2
+leftHeight:2
+=== root->data:6
+=== root->data:5
+root == nullptr,return 0
+leftHeight:0
+root == nullptr,return 0
+rightHeight:0
+std::max(leftHeight, rightHeight) + 1,return :1
+leftHeight:1
+=== root->data:7
+root == nullptr,return 0
+leftHeight:0
+root == nullptr,return 0
+rightHeight:0
+std::max(leftHeight, rightHeight) + 1,return :1
+rightHeight:1
+std::max(leftHeight, rightHeight) + 1,return :2
+rightHeight:2
+std::max(leftHeight, rightHeight) + 1,return :3
+isBalanced: 1
+
+
+*/
