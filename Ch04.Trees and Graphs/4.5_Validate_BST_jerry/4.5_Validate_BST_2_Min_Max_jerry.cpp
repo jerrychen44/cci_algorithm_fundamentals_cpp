@@ -14,7 +14,7 @@ bool checkBST(TreeNode* node,int min,int max){
         std::cout << "  node == nullptr, return true" << std::endl;
         return true;
     }
-    std::cout << "== level node->data: "<< node->data << std::endl;
+    std::cout << "== level node->data: "<< node->data<< ", min: "<< min <<", max:"<< max << std::endl;
 
     //we skip the fisrt compare because that is the root
     if ( (min!=-9999999 && node->data <= min) || (max!=9999999 && node->data > max) ){
@@ -52,8 +52,8 @@ bool checkBST(TreeNode* node){
 int main(){
 
     //construct a tree for example
-    //int A[] = {1, 2, 3, 4, 5, 6, 7};
-    int A[] = {1, 9, 3, 4, 5, 6, 7};
+    int A[] = {1, 2, 3, 4, 5, 6, 7};
+    //int A[] = {1, 9, 3, 4, 5, 6, 7};
 
     std::vector<int> arr (A, A + sizeof(A) / sizeof(A[0]) );
     TreeNode *root = createMinBST(arr);
