@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-
+#include <cmath>
 #include "tree_utility.cpp"
 
 
@@ -19,12 +19,63 @@ int nodeDepth(TreeNode *node){
     return depth;
 }
 
+TreeNode* moveDeeperNodeUp(TreeNode* node, int depDelta){
+    TreeNode *tmp = node;
+    while(depDelta > 0 && tmp!=nullptr){
+        tmp = tmp->parent;
+        depDelta--;
+    }
+    return tmp;
+}
+
 
 TreeNode* commonAncestor(TreeNode *node1, TreeNode *node2){
 
-    int depDelta = nodeDepth(node1) - nodeDepth(node2);
+    std::cout << "node1: " << node1->data << std::endl;
+    std::cout << "node2: " << node2->data << std::endl;
 
-    return node1;
+    int depDelta = nodeDepth(node1) - nodeDepth(node2);
+    std::cout << "depDelta: " << depDelta << std::endl;
+
+    TreeNode *shallowerNode;
+    TreeNode *deeperNode;
+
+    if(depDelta > 0){
+        //node1 deeper then node2
+        shallowerNode = node2;
+        deeperNode = node1;
+        std::cout << "node1 deeper then node2" << std::endl;
+
+    }else if(depDelta < 0){
+        //node2 deeper then node1
+        shallowerNode = node1;
+        deeperNode = node2;
+        std::cout << "node2 deeper then node1" << std::endl;
+    }else{
+        std::cout << "node1 has the same depth as node2" << std::endl;
+    }
+    //update the deeperNode to the upest node
+    //which at the same level with node2
+    deeperNode = moveDeeperNodeUp(deeperNode, abs(depDelta));
+    std::cout << "updated deeperNode:" << deeperNode->data << std::endl;
+
+    //now deeperNode and shallowerNode are both at the same level
+    //we up move these two node together to see their common parent
+    while(shallowerNode != deeperNode && shallowerNode!=nullptr && deeperNode!=nullptr){
+        shallowerNode = shallowerNode->parent;
+        deeperNode = deeperNode->parent;
+    }
+
+    //check result
+    if(shallowerNode ==nullptr || deeperNode == nullptr){
+        std::cout << "shallowerNode ==nullptr || deeperNode == nullptr, return null, no common ancestor" << std::endl;
+        return nullptr;
+    }
+
+    std::cout << "commonAncestor: " << shallowerNode->data << std::endl;
+    //std::cout << "commonAncestor: " << deeperNode->data << std::endl;
+
+    return shallowerNode; //or deeperNode, they are the same now.
 }
 
 int main(){
@@ -85,7 +136,7 @@ int main(){
     //First common Ancestor
     //depth testing
     //nodeDepth(node21);
-    commonAncestor(node9, node14);
+    commonAncestor(node9, node70);
 
 
 
