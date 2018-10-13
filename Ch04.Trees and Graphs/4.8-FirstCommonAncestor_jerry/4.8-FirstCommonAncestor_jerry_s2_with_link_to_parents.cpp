@@ -4,20 +4,30 @@
 #include "tree_utility.cpp"
 
 
+//check the node are covered by the root all
+//along in subtree
 bool covers(TreeNode* root, TreeNode* node){
-    if(root == nullptr)
+    std::cout <<"== covers"<<std::endl;
+
+    if(root == nullptr){
+        std::cout <<"   root == null, return false"<<std::endl;
         return false;
+    }
+    std::cout <<"   root:"<< root->data <<", node:"<< node->data <<std::endl;
     if(root == node){
-        std::cout <<"root == node, return true"<<std::endl;
+        std::cout <<"   root == node, return true"<<std::endl;
         return true;
     }
 
     return covers(root->left, node) || covers(root->right, node);
 }
 
+//return sibling
 TreeNode * getSibling(TreeNode *node){
+    std::cout <<"== getSibling"<<std::endl;
+
     if(node == nullptr || node->parent == nullptr){
-        std::cout << "node == nullptr || node->parent == nullptr" << std::endl;
+        std::cout << "  node == nullptr || node->parent == nullptr" << std::endl;
         return nullptr;
     }
 
@@ -53,9 +63,11 @@ TreeNode* commonAncestor(TreeNode *root, TreeNode *node1/* p */, TreeNode *node2
     //Traverse upwards until you find a node that covers node2
     TreeNode *node1sibling = getSibling(node1);
     TreeNode *node1parent = node1->parent;
-    std::cout << "node1 ,"<< node1->data <<" node1sibling is : "<< node1sibling->data << std::endl;
-    std::cout << "node1 ,"<< node1->data <<" node1parent is : "<< node1parent->data << std::endl;
 
+    if(node1parent != nullptr && node1sibling != nullptr){
+        std::cout << "node1 ,"<< node1->data <<" node1sibling is : "<< node1sibling->data << std::endl;
+        std::cout << "node1 ,"<< node1->data <<" node1parent is : "<< node1parent->data << std::endl;
+    }
 
     while(!covers(node1sibling, node2)){
         node1sibling = getSibling(node1parent);
@@ -126,7 +138,7 @@ int main(){
     //First common Ancestor
     //depth testing
     //nodeDepth(node21);
-    commonAncestor(root, node14, node70);
+    commonAncestor(root, node55, node20);
 
 
 
