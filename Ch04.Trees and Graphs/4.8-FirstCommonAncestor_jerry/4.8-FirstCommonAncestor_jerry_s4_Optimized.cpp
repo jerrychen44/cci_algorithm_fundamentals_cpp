@@ -65,13 +65,21 @@ Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
 
         //these for print only
         int tmpdata=-999;
-        if (leftrst->node != nullptr)
+        if (leftrst->node != nullptr){
+
             tmpdata = leftrst->node->data;
+            std::cout <<"case3-1 leftrst->node != nullptr"<<std::endl;
+
+        }
         else{
-            if(rightrst->node !=nullptr)
+            if(rightrst->node !=nullptr){
+                std::cout <<"case3-2 leftrst->node == nullptr, rightrst->node !=nullptr"<<std::endl;
                 tmpdata = rightrst->node->data;
-            else
+            }
+            else{
+                std::cout <<"case3-3 leftrst->node == nullptr, rightrst->node ==nullptr"<<std::endl;
                 tmpdata = -666;
+            }
         }
 
         std::cout <<"case3 Result("<< tmpdata <<", false)"<<std::endl;
