@@ -18,12 +18,17 @@ public:
 Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
 
 
-    if(root == nullptr)
+    if(root == nullptr){
+        std::cout <<"root == nullptr, return new Result(nullptr, false)"<<std::endl;
         return new Result(nullptr, false);
+    }
+    std::cout <<"root="<<root->data<<",node1="<<node1->data<<",node2="<<node2->data<<std::endl;
+
 
     //if root equaly as node1 and node2, then
     // root is Ancestor for sure.
     if( root == node1 && root == node2){
+        std::cout <<"root == node1 && root == node2, return new Result(root, true)"<<std::endl;
         return new Result(root, true);
     }
 
@@ -32,11 +37,13 @@ Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
     //handle the isAncestor = True
     Result *leftrst = Helper(root->left, node1, node2);
     if(leftrst->isAncestor){
+        std::cout <<"leftrst->isAncestor, return leftrst"<<std::endl;
         return leftrst;
     }
 
     Result *rightrst = Helper(root->right, node1, node2);
     if(rightrst ->isAncestor){
+        std::cout <<"rightrst->isAncestor, return rightrst"<<std::endl;
         return rightrst;
     }
 
@@ -45,21 +52,32 @@ Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
     // if the code run to this part, which means the isAncestor = false
     // let us check the node is nullptr or not
     if(leftrst->node != nullptr && rightrst->node !=nullptr){
-        std::cout <<"leftrst->node != nullptr && rightrst->node !=nullptr, return Result(root, true)"<<std::endl;
+        std::cout <<"case1 leftrst->node != nullptr && rightrst->node !=nullptr, return Result(root, true)"<<std::endl;
         return new Result(root, true);
+
     }else if(root == node1 || root ==node2){
         //If we're currently at node1 or node2, and we also found one of those nodes in a subtree,
         //then this is truly an ancestor and the flag should be true.
         bool isAncestor = leftrst->node !=nullptr || rightrst->node !=nullptr;
+        std::cout <<"case2 root == node1 || root ==node2, return Result(root, "<<isAncestor<<")"<<std::endl;
         return new Result(root, isAncestor);
     }else{
+
+        //these for print only
+        int tmpdata=-999;
+        if (leftrst->node != nullptr)
+            tmpdata = leftrst->node->data;
+        else{
+            if(rightrst->node !=nullptr)
+                tmpdata = rightrst->node->data;
+            else
+                tmpdata = -666;
+        }
+
+        std::cout <<"case3 Result("<< tmpdata <<", false)"<<std::endl;
         return new Result(leftrst->node != nullptr ? leftrst->node : rightrst->node, false);
     }
 
-
-
-
-    return new Result(nullptr, 1);
 }
 
 
