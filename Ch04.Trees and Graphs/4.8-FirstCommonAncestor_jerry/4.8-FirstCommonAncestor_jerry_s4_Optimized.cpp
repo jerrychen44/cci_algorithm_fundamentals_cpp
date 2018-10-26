@@ -3,6 +3,8 @@
 #include <cmath>
 #include "tree_utility.cpp"
 
+int layercount = 0;
+std::string layer = "";
 
 class Result{
 public:
@@ -17,18 +19,25 @@ public:
 
 Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
 
+    //for(int i =0; i< layercount ; ++i){
+    layer = layer + " ";
+    //}
+    //layercount++;
 
     if(root == nullptr){
-        std::cout <<"root == nullptr, return new Result(nullptr, false)"<<std::endl;
+        std::cout<<layer <<"root == nullptr, return new Result(nullptr, false)"<<std::endl;
+        layer.pop_back();
         return new Result(nullptr, false);
     }
-    std::cout <<"root="<<root->data<<",node1="<<node1->data<<",node2="<<node2->data<<std::endl;
+    std::cout <<layer<<"root="<<root->data<<",node1="<<node1->data<<",node2="<<node2->data<<std::endl;
 
 
     //if root equaly as node1 and node2, then
     // root is Ancestor for sure.
     if( root == node1 && root == node2){
-        std::cout <<"root == node1 && root == node2, return new Result(root, true)"<<std::endl;
+        std::cout<<layer << "Found common ancestor"<< std::endl;
+        std::cout<<layer <<"root == node1 && root == node2, return new Result(root, true)"<<std::endl;
+        layer.pop_back();
         return new Result(root, true);
     }
 
@@ -37,13 +46,17 @@ Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
     //handle the isAncestor = True
     Result *leftrst = Helper(root->left, node1, node2);
     if(leftrst->isAncestor){
-        std::cout <<"leftrst->isAncestor, return leftrst"<<std::endl;
+        std::cout<<layer << "Found common ancestor" <<std::endl;
+        std::cout<<layer <<"leftrst->isAncestor, return leftrst"<<std::endl;
+        layer.pop_back();
         return leftrst;
     }
 
     Result *rightrst = Helper(root->right, node1, node2);
     if(rightrst ->isAncestor){
-        std::cout <<"rightrst->isAncestor, return rightrst"<<std::endl;
+        std::cout<<layer << "Found common ancestor"<< std::endl;
+        std::cout <<layer<<"rightrst->isAncestor, return rightrst"<<std::endl;
+        layer.pop_back();
         return rightrst;
     }
 
@@ -52,14 +65,16 @@ Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
     // if the code run to this part, which means the isAncestor = false
     // let us check the node is nullptr or not
     if(leftrst->node != nullptr && rightrst->node !=nullptr){
-        std::cout <<"case1 leftrst->node != nullptr && rightrst->node !=nullptr, return Result(root, true)"<<std::endl;
+        std::cout<<layer <<"case1 leftrst->node != nullptr && rightrst->node !=nullptr, return Result(root, true)"<<std::endl;
+        layer.pop_back();
         return new Result(root, true);
 
     }else if(root == node1 || root ==node2){
         //If we're currently at node1 or node2, and we also found one of those nodes in a subtree,
         //then this is truly an ancestor and the flag should be true.
         bool isAncestor = leftrst->node !=nullptr || rightrst->node !=nullptr;
-        std::cout <<"case2 root == node1 || root ==node2, return Result(root, "<<isAncestor<<")"<<std::endl;
+        std::cout<<layer <<"case2 root == node1 || root ==node2, return Result(root, "<<isAncestor<<")"<<std::endl;
+        layer.pop_back();
         return new Result(root, isAncestor);
     }else{
 
@@ -68,21 +83,22 @@ Result* Helper(TreeNode *root, TreeNode *node1, TreeNode *node2){
         if (leftrst->node != nullptr){
 
             tmpdata = leftrst->node->data;
-            std::cout <<"case3-1 leftrst->node != nullptr"<<std::endl;
+            std::cout<<layer <<"case3-1 leftrst->node != nullptr"<<std::endl;
 
         }
         else{
             if(rightrst->node !=nullptr){
-                std::cout <<"case3-2 leftrst->node == nullptr, rightrst->node !=nullptr"<<std::endl;
+                std::cout<<layer <<"case3-2 leftrst->node == nullptr, rightrst->node !=nullptr"<<std::endl;
                 tmpdata = rightrst->node->data;
             }
             else{
-                std::cout <<"case3-3 leftrst->node == nullptr, rightrst->node ==nullptr"<<std::endl;
+                std::cout<<layer <<"case3-3 leftrst->node == nullptr, rightrst->node ==nullptr"<<std::endl;
                 tmpdata = -666;
             }
         }
 
-        std::cout <<"case3 Result("<< tmpdata <<", false)"<<std::endl;
+        std::cout<<layer <<"case3 Result("<< tmpdata <<", false)"<<std::endl;
+        layer.pop_back();
         return new Result(leftrst->node != nullptr ? leftrst->node : rightrst->node, false);
     }
 
