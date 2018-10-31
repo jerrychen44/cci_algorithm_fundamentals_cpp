@@ -5,15 +5,41 @@
 
 
 
-std::vector<std::vector<int>* >* allSequence(TreeNode* node){
+std::vector<std::vector<int> *>* allSequence(TreeNode* node){
 
-    std::vector<std::vector<int>* > *result = new std::vector<std::vector<int>* >;
+    std::vector< std::vector<int> * > *result = new std::vector<std::vector<int> *>;
 
     if(node == nullptr){
         result->push_back(new std::vector<int>);
         return result;
     }
 
+
+    std::vector<int> *prefix  = new std::vector<int>;
+    prefix->push_back(node->data);
+
+    //Recurse on left and right subtrees
+    std::vector<std::vector<int> *>* leftSeq  = allSequence(node->left);
+    std::vector<std::vector<int> *>* rightSeq = allSequence(node->right);
+
+
+    //weave together each list from the left and right sides
+    for (int i =0; i < leftSeq->size(); ++i){
+        for(int j = 0; j < rightSeq->size(); ++ j){
+
+            std::vector< std::vector<int> * > * weaved = new std::vector<std::vector<int> *>;
+            weaveLists(leftSeq[i],rightSeq[j],weaved,prefix);
+
+            for(int w=0; w<weaved->size(); ++w)
+                result->push_back(weaved->at(w));
+
+        }
+    }
+
+
+
+
+    return result;
 }
 
 
@@ -73,7 +99,7 @@ int main(){
     //depth testing
     //nodeDepth(node21);
     //commonAncestor(root, node12, node55);
-
+    allSequence(root);
 
 
     freeTree(root);
