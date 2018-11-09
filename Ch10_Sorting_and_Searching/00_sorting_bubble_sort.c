@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+//runtime O(n^2) avg, worst case
+//Memory O(1) for int swap
 void bubble_sort(int *array,int n){
     //the last item doesn't need to swap, so i to n-1
     //first loop only provide the looping , doesn't effect the index
