@@ -17,6 +17,7 @@ void printArray(int *array, int elem){
 void merge(int *array,int *helper,int low,int middle,int high)
 {
 
+    printf("    merge===\n");
     //copy both halves into a helper array
     for(int i = low; i <= high; i++){
         helper[i] = array[i];
@@ -29,24 +30,37 @@ void merge(int *array,int *helper,int low,int middle,int high)
     //Iterate through helper array.
     //Compare the left and right half, copying back the smaller element from the two halves
     //into the orighinal array
+
+    //compare use helperleft/right indx on helper array
+    //and update result to array
     while(helperLeft <= middle && helperRight <= high)
     {
+        printf("       helperLeft %d, middle %d, helperRight %d, high %d,current %d\n",
+                                            helperLeft, middle, helperRight, high,current);
+
+        //put smaller to the array
         if(helper[helperLeft] < helper[helperRight]){
+            printf("           helper[%d] %d < helper[%d] %d\n",helperLeft,helper[helperLeft],helperRight,helper[helperRight]);
+            printf("           array[current] = helper[helperLeft] %d, helperLeft++\n",helper[helperLeft]);
             array[current] = helper[helperLeft];
             helperLeft++;
         }else{
             //if right element is smaller than left element
+            printf("           helper[%d] %d >= helper[%d] %d\n",helperLeft,helper[helperLeft],helperRight,helper[helperRight]);
+            printf("           array[current] = helper[helperRight] %d, helperRight++\n",helper[helperRight]);
             array[current] = helper[helperRight];
             helperRight++;
         }
         current++;
     }
 
-    //copy the rest of left side of the array into
-    //the target array
+    //copy the left half of the helper array into
+    //the target array, to maintain the full array
+    //(right half is arleady here, doesn't need to copy)
     int remaining = middle - helperLeft;
     for(int i=0; i <=remaining; i++){
-        array[current + i] =helper[helperLeft + i];
+        printf("      copy remaining element, array[%d] = helper[%d] %d\n",current + i,helperLeft + i,helper[helperLeft + i]);
+        array[current + i] = helper[helperLeft + i];
     }
 
 }
@@ -55,12 +69,24 @@ void merge(int *array,int *helper,int low,int middle,int high)
 //Memory: depends
 void merge_sort(int *array, int *helper,int low,int high)
 {
+
     if(low < high)
     {
+        //printArray(helper,10);
+
         int mid=(low + high)/2;
+        printf("merge_sort: %d ~ %d, mid %d\n",low, high,mid);
+
+        printf("    call for left\n");
         merge_sort(array,helper,low,mid);        //left recursion
+        printf("    call for right\n");
         merge_sort(array,helper,mid+1,high);    //right recursion
+        printf("    call for merge %d ~ %d\n",low,high);
         merge(array,helper,low,mid,high);    //merging of two sorted sub-arrays
+        printArray(array,7);
+
+    }else{
+        printf("merge_sort: low %d !< high %d, skip\n",low, high);
     }
 }
 
@@ -93,6 +119,8 @@ int main()
 
     //sorting, array, lowidx, hgighidx
     int helper[elem];
+    for(int i =0; i <elem; i++)
+        helper[i] = 0;
     merge_sort(array,helper,0,elem-1);
 
 
