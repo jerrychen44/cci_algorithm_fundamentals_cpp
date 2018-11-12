@@ -7,6 +7,16 @@ void printArray(int *array, int elem){
 
     printf("    ");
     for (int c = 0; c < elem; c++)
+        printf(" %d, ",c);
+    printf("\n");
+
+    printf("    ");
+    for (int c = 0; c < elem; c++)
+        printf("----");
+    printf("\n");
+
+    printf("    ");
+    for (int c = 0; c < elem; c++)
         printf("%d, ", array[c]);
 
     printf("\n");
@@ -27,23 +37,28 @@ int partition(int *array,int left,int right){
     int pivot_value = array[(left + right) / 2];//pick a pivot point
     printf("    pivot_value: =  array[%d] = %d\n",(left + right) / 2,pivot_value);
 
+    //left, right not cross over,l mostly is left == right
     while(left <= right){
-        printf("    left %d, right %d \n",left,right);
+        printf("    CURRENT, left %d, right %d \n",left,right);
         //Find element on left taht should be on right
-        printf("    array[left]:%d, array[right]:%d, pivot_value:%d\n",array[left],array[right], pivot_value);
+        printf("    CURRENT, array[left]:%d, array[right]:%d, pivot_value:%d\n",array[left],array[right], pivot_value);
+
+        //find the index which value > pivot_value
+        //FIND LARGER
         while(array[left] < pivot_value){
             //let left keep going increasing,
             //it will stop increasing when we find
             //the element > pivot_value
             //we will use this left index to swap later
-            printf("    array[%d]=%d < pivot_value: %d, left++ = %d\n",left,array[left],pivot_value, left+1);
+            printf("    KEEP FINDING LARGER,array[%d]=%d < pivot_value: %d, left++ = %d\n",left,array[left],pivot_value, left+1);
             left++;
         }
 
         //the same as above
         //Find element on right that should be on left
+        //FIND SMALLER
         while( array[right] > pivot_value){
-            printf("    array[%d]=%d > pivot_value: %d, right-- = %d\n",right,array[right],pivot_value, right-1);
+            printf("    KEEP FINDING SMALLER, array[%d]=%d > pivot_value: %d, right-- = %d\n",right,array[right],pivot_value, right-1);
 
             right --;
         }
@@ -75,17 +90,21 @@ int partition(int *array,int left,int right){
 void quick_sort(int *array,int left,int right){
 
     int index = partition(array, left, right);
-    printf("index: %d\n",index);
+    printf("index: %d, left %d, right %d\n",index,left,right);
 
     if(left < index -1){
         printf("left~\n");
         quick_sort(array,left,index-1);
-    }
+    }else
+        printf("SKIP left~\n");
 
+    printf("index: %d, left %d, right %d\n",index,left,right);
     if(index < right){
         printf("right~\n");
         quick_sort(array,index,right);
-    }
+    }else
+        printf("SKIP right~\n");
+
 
 }
 
@@ -105,7 +124,7 @@ int main()
     array[0] = 38;
     array[1] = 27;
     array[2] = 43;
-    array[3] = 3;
+    array[3] = 16;
     array[4] = 9;
     array[5] = 82;
     array[6] = 10;
