@@ -56,7 +56,7 @@ void merge(int *array,int *helper,int low,int middle,int high)
 
     //copy the left half of the helper array into
     //the target array, to maintain the full array
-    //(right half is arleady here, doesn't need to copy)
+    //(right half is arleady here as the same with array)
     int remaining = middle - helperLeft;
     for(int i=0; i <=remaining; i++){
         printf("      copy remaining element, array[%d] = helper[%d] %d\n",current + i,helperLeft + i,helper[helperLeft + i]);
@@ -66,7 +66,8 @@ void merge(int *array,int *helper,int low,int middle,int high)
 }
 
 //runtime: O(nlogn) avg, worst case
-//Memory: depends
+//Memory: O(n), use helper array to help merge result
+//Not a inplace sort
 void merge_sort(int *array, int *helper,int low,int high)
 {
 
