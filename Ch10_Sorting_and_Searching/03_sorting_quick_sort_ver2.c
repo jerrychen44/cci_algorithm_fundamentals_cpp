@@ -61,10 +61,12 @@ int partition(int *array,int start,int end){
 
 }
 
-
-//runtime:
-//Memory:
-//In place sort
+// 1.Divide and conquer
+// 2.Recursive
+// 3.Not stable sorting
+// 4.In-place
+//runtime:Best O(nlogn), worst O(n^2), Avg use randomPivot O(nlogn)
+//Memory: O(logn)
 void quick_sort(int *array,int start,int end){
 
     printf("quick_sort,start=%d, end=%d\n",start, end);
